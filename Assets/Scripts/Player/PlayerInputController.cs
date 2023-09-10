@@ -27,6 +27,7 @@ public class PlayerInputController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             horizontalValue = Input.GetAxis("Mouse X");
+            Debug.Log(horizontalValue);
         }
         else
         {

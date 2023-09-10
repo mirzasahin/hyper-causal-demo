@@ -26,21 +26,27 @@ public class CubeController : MonoBehaviour
 
     private void SetCubeRaycast()
     {
-        if(Physics.Raycast(transform.position, direction, out hit, 1f))
+        // SphereCast baþlangýç noktasý (kürenin merkezi) ve yarýçapýný kullanýr
+        float radius = 0.5f; // Küre yarýçapý, ayarlamalarý ihtiyaca göre yapabilirsiniz
+        Vector3 castDirection = direction.normalized; // Raycast yönü
+
+        // SphereCast ile çevresindeki objeleri tespit et
+        if (Physics.SphereCast(transform.position, radius, castDirection, out hit, 1f))
         {
-            if(!isStack)
+            if (!isStack)
             {
                 isStack = true;
                 playerStackController.IncreaseBlockStack(gameObject);
                 SetDirection();
             }
 
-            if(hit.transform.name == "ObstacleCube")
+            if (hit.transform.name == "ObstacleCube")
             {
                 playerStackController.DecreaseBlock(gameObject);
             }
         }
     }
+
 
     private void SetDirection()
     {
