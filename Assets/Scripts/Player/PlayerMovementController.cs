@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [SerializeField] private PlayerInputController playerInputController;
+    PlayerLife playerLife;
 
+    [SerializeField] private PlayerInputController playerInputController;
 
     [SerializeField] private float forwardMovementSpeed;
 
@@ -16,7 +17,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private float newPositionX;
 
-
+    private void Start()
+    {
+        playerLife = GameObject.FindObjectOfType<PlayerLife>();
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -26,7 +30,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void SetPlayerForwardMovement()
     {
-        transform.Translate(Vector3.down * forwardMovementSpeed * Time.fixedDeltaTime);
+        if (playerLife.isLive)
+        {
+            transform.Translate(Vector3.down * forwardMovementSpeed * Time.fixedDeltaTime);
+        }
     }
      
     private void SetPlayerHorizontalMovement()
